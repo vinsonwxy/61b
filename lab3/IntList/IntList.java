@@ -236,5 +236,17 @@ public class IntList {
         out.format(")");
         return out.toString();
     }
+
+    public static IntList reverse(IntList A){
+        IntList R, A1;
+        for (R = null; A != null; A = A1){
+            A1 = A.rest;
+            A.rest = R;
+            R = A;
+        }
+        return R;
+    }
+
+
 }
 
