@@ -24,13 +24,12 @@ public class Table {
 		columnTypes = colTypes;
 	}
 
-	public Table(String[] titles, int n) {
-		numOfRows = n;
-		numOfColumns = titles.length();
-		tableInfo = new String[n][numOfColumns];
-		for (int i = 0; i < numOfColumns; i++) {
-			tableInfo[0][i] = titles[i];
-		}
+	public Table(int numRows, int numCols, String[] colNames, String[] colTypes, String[][] tableData) {
+		numOfRows = numRows;
+		numOfColumns = numCols;
+		tableInfo = tableData;
+		columnNames = colNames;
+		columnTypes = colTypes;
 	}
 
 	public void addRow();

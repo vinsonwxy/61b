@@ -35,7 +35,13 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Queue<Item>>
             makeSingleItemQueues(Queue<Item> items) {
         // Your code here!
-        return null;
+        Queue<Queue<Item>> singleItemQueues = new Queue<>();
+        for (Item item: items) {
+            Queue<Item> singleItemQueue = new Queue<>();
+            singleItemQueue.enqueue(item);
+            singleItemQueues.enqueue(singleItemQueue);
+        }
+        return singleItemQueues;
     }
 
     /**
@@ -54,13 +60,42 @@ public class MergeSort {
     private static <Item extends Comparable> Queue<Item> mergeSortedQueues(
             Queue<Item> q1, Queue<Item> q2) {
         // Your code here!
-        return null;
+        Queue<Item> q = new Queue<>();
+        while ((!q1.isEmpty()) || (!q2.isEmpty())) {
+            q.enqueue(getMin(q1, q2));
+        }
+        return q;
     }
 
     /** Returns a Queue that contains the given items sorted from least to greatest. */
     public static <Item extends Comparable> Queue<Item> mergeSort(
             Queue<Item> items) {
         // Your code here!
-        return items;
+        if (items.isEmpty()) {
+            return items;
+        }
+        Queue<Queue<Item>> s = makeSingleItemQueues(items);
+        while (s.size() > 1) {
+            Queue<Item> first = s.dequeue();
+            Queue<Item> second = s.dequeue();
+            s.enqueue(mergeSortedQueues(first, second));
+        }
+        return s.dequeue();
+    }
+
+    public static void main(String[] args) {
+        Queue<Integer> numQueue = new Queue<Integer>();
+        numQueue.enqueue(5);
+        numQueue.enqueue(3);
+        numQueue.enqueue(2);
+        numQueue.enqueue(8);
+        numQueue.enqueue(4);
+        numQueue.enqueue(7);
+        numQueue.enqueue(0);
+        numQueue.enqueue(6);
+        numQueue.enqueue(1);
+        Queue<Integer> sortedNumQueue = mergeSort(numQueue);
+        System.out.println(numQueue.toString());
+        System.out.println(sortedNumQueue.toString());
     }
 }
